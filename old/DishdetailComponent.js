@@ -1,11 +1,10 @@
-import React from "react";
-import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
+import React, { Component } from "react";
+import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from "reactstrap";
 
 
+class DishDetail extends Component {
 
-
-    function RenderDish ({dish}) {
-        //console.log(dish)
+    renderDish(dish) {
         if (dish != null) {
             return (
                 <div>
@@ -26,8 +25,7 @@ import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
             )
         }
     }
-    function RenderComment({dish}) {
-      //console.log(dish)
+    renderComment(dish) {
         if (dish != null) {
             return (
                 <div >
@@ -36,20 +34,15 @@ import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
                                 <h4>Comments</h4>
                             </div>
                             {dish.comments.map((comment) => {
-                            return(                 
+                            return(                        
                                 <div key={comment.id}>
                                     <div>
                                         <div className="row">
                                             <ul>{comment.comment}</ul>
                                         </div>
                                         <div className="row">
-                                            <ul>-- {comment.author}</ul>
-                                            <ul>{new Intl.DateTimeFormat("en-US", {
-                                                year: "numeric",
-                                                month: "short",
-                                                day: "2-digit"
-                                                }).format(new Date(comment.date))}
-                                            </ul>
+                                            <ul>--{comment.author}</ul>
+                                            <ul>{comment.date}</ul>
                                         </div>
                                     </div>
                                 </div>
@@ -67,22 +60,23 @@ import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
         }
     }
 
-    const DishDetail = (props) => {
-        console.log("DishDetail Component render is invoked");
-        
+
+    render() {
+        console.log(this.props.dishDetail);
         return (
-            <div className="container">
-                <div className="row">
-                    <div  className="col-md-5 m-1">
-                        <RenderDish dish={props.dishDetail} />
-                    </div>
-                    <div  className="col-md-5 m-1">
-                        <RenderComment dish={props.dishDetail} />
-                    </div>
+            <div>
+            <div className="row" >
+                <div  className="col-md-5 m-1">
+                    {this.renderDish(this.props.dishDetail)}
                 </div>
+                <div  className="col-md-5 m-1">
+                    {this.renderComment(this.props.dishDetail)}
+                </div>
+            </div>
             </div>
         )
 
     }
+}
 
 export default DishDetail;

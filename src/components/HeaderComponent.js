@@ -1,13 +1,56 @@
 import React, {Component} from 'react';
-import {Navbar, NavbarBrand, Jumbotron} from "reactstrap";
+import {Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, Jumbotron} from "reactstrap";
+import {NavLink} from 'react-router-dom';
 
 class Header extends Component {
+/*we used class bc we need to store some state info here */
+    constructor (props) {
+        super(props);
+        this.state= {
+            isNavOpen: false
+        };
+        this.toggleNav = this.toggleNav.bind(this);/*we use bind instead of arrow function*/
+    }
+
+    toggleNav() {
+        this.setState ( {
+            isNavOpen: !this.state.isNavOpen /* reverse the status   */
+        });
+    }
     render () {
         return(
             <React.Fragment> 
-                <Navbar dark>
+                <Navbar dark expand="md">
                     <div className="container">
-                        <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
+                        <NavbarToggler onClick={this.toggleNav} />
+                        <NavbarBrand className="mr-auto" href="/"></NavbarBrand>
+                            <img src="assets/images/logo.png" height="30" width="41"
+                                alt="Ristorante Con Fusion" />
+                        <NavbarBrand/>
+                        <Collapse isOpen={this.state.isNavOpen} navbar>
+                            <Nav navbar>
+                                <NavItem>
+                                    <NavLink className="nav-link" to="/home">
+                                        <span className="fa fa-homa fa-lg"></span>Home
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className="nav-link" to="/aboutus">
+                                        <span className="fa fa-info fa-lg"></span>About Us
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className="nav-link" to="/menu">
+                                        <span className="fa fa-list fa-lg"></span>Menu
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className="nav-link" to="/contactus">
+                                        <span className="fa fa-adress-card fa-lg"></span>Contact Us
+                                    </NavLink>
+                                </NavItem>
+                            </Nav>
+                        </Collapse>
                     </div>
                 </Navbar>
                 <Jumbotron> {/* to specify some info that can be displayed at the top of header */}

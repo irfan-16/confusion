@@ -3,7 +3,7 @@ import {Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, Jumbotron} f
 import {NavLink} from 'react-router-dom';
 
 class Header extends Component {
-/*we used class bc we need to store some state info here */
+/*we used class bcos we need to store some state info here */
     constructor (props) {
         super(props);
         this.state= {

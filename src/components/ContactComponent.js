@@ -18,7 +18,8 @@ class Contact extends React.Component {
             lastname: false,
             telnum: false,
             email: false,
-        }
+        },
+    
  
 
     }
@@ -29,28 +30,39 @@ class Contact extends React.Component {
  
     
 
+    componentDidMount(){ //this happen first, when the componenet mounted
+        this.setState ({
+            email:'@',
+        });
+        
+    }
     handleInputChange(event){
         const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
+        const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+        //const name = target.name;
+        console.log('name:', event.target.name);
+        console.log('value:', event.target.value);
+        //console.log(event.target.checked)
+        //console.log(event)
     
         this.setState({
-          [name]: value
+            //[name]:value,
+            [event.target.name]: event.target.value
         });
+        
     }
 
-    handleSubmit=(event)=> {
-        console.log('Current state is:' + JSON.stringify(this.state));
+    handleSubmit = (event) => {
+        console.log('Current state is:' + (this.state));
         //alert('Current state is:' + JSON.stringify(this.state));
         event.preventDefault();
     }
 
     handleBlur = (field) => (evt) => {
-        
         this.setState({
-            touched: {...this.state.touched, [field]: true}
+            touched: {...this.state.touched, [field]: true},
         });
-        console.log('touched:', this.state.touched)
+        
     }
 
     validate(firstname, lastname, telnum, email) {
@@ -85,7 +97,6 @@ class Contact extends React.Component {
 
     render () {
         const errors = this.validate(this.state.firstname, this.state.lastname, this.state.telnum, this.state.email);
-        console.log('validation:', this.validate(this.state.firstname, this.state.lastname, this.state.telnum, this.state.email))
         return(
             <div className="container">
                 <div className="row">
@@ -134,6 +145,7 @@ class Contact extends React.Component {
                                 <Label htmlFor='fistname' md={2}>First Name</Label>
                                 <Col md={10}>
                                     <Input type='text' id='firstname' name='firstname'
+                                        ref={this.inputfirstnameRef}
                                         placeholder='First Name'
                                         value={this.state.firstname}
                                         valid={errors.firstname === ''}
@@ -195,7 +207,7 @@ class Contact extends React.Component {
                                 </Col>
                                 <Col md={{size: 3, offset: 1 }}>
                                        <Input type='select' name='contactType'
-                                            valee={this.state.contactType}
+                                            value={this.state.contactType}
                                             onChange={this.handleInputChange}>
                                             <option>Tel.</option> 
                                             <option>Email</option>

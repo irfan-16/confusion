@@ -12,6 +12,8 @@ import Footer from './FooterComponent'
 // import {LEADERS} from '../shared/leaders'; 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
+import { addComment, fetchDishes } from '../redux/ActionCreators';
+import {actions} from 'react-redux-form';
 
 
 const mapStateToProps = state =>{
@@ -20,29 +22,40 @@ const mapStateToProps = state =>{
       comments: state.comments,// so we use props below
       promotions: state.promotions,
       leaders: state.leaders,
+       
     }
+    
 }
+ //addComment as an action is called and dispatched
+ //to be used as a function by dispatch()
+ //so addComment can be used as a props
+const mapDispatchToProps =(dispatch) => 
+({
+  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
+  fetchDishes: () => {dispatch(fetchDishes())},
+  resetFeedbackForm : () => {dispatch(actions.reset('feedback'))}
+  
+})
+
+
+
 
 class Main extends Component {
+  
 
-//   constructor(props){
-//     super(props);
+  componentDidMount () {
+    this.props.fetchDishes();
+    //console.log('didmount:', this.props.dispatch)
+  }
 
-//     this.state={  ----moved to reducer
-//       dishes:DISHES,
-//       comments:COMMENTS,
-//       promotions:PROMOTIONS,
-//       leaders:LEADERS,
-//     };
-    
 
-// }
-
- 
   render() {
+    console.log('dish: ', this.props.dishes)
     const HomePage = () => {
       return (
-        <Home dish={this.props.dishes.filter((dish) => dish.featured)[0]} 
+        <Home dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
+        dishesLoading={this.props.dishes.isLoading}
+        dishesErrMess={this.props.dishes.errMess} 
         promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
         leader={this.props.leaders.filter((leader) => leader.featured)[3]}        
         /> 
@@ -50,11 +63,15 @@ class Main extends Component {
     }
     
     const DishWithId = ({match}) => { /*Route pass 3 props match, location, history */
-      console.log("DishWithId invoked", {match})
+      //console.log("DishWithId invoked", {match})
       
       return (
-        <DishDetail dish={this.props.dishes.filter((dish) =>dish.id === parseInt(match.params.dishId,10))[0]}
+        <DishDetail dish={this.props.dishes.dishes.filter((dish) =>dish.id === parseInt(match.params.dishId,10))[0]}
+        isLoading={this.props.dishes.dishesLoading}
+        ErrMess={this.props.dishes.errMess}
         comments = {this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
+        //to make use te addComment
+        addComment ={this.props.addComment}
         />
         )
     }
@@ -65,7 +82,7 @@ class Main extends Component {
           <Route path="/home" component ={HomePage} />
           <Route exact path="/menu" component ={() => <Menu dishes={this.props.dishes} />} /> {/* necessary to pass props */}
           <Route path="/menu/:dishId" component={DishWithId}></Route>
-          <Route exact path="/contactus" component={Contact} />
+          <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm}/>} />
           <Route exact path="/aboutus" component={() => <About leaders={this.props.leaders} />} />
           <Redirect to="home" />
         </Switch>
@@ -77,4 +94,5 @@ class Main extends Component {
   }
 }
 
-export default withRouter((connect(mapStateToProps)(Main)));//to connect component to Redux Store
+//to make props available, we use connect 
+export default withRouter((connect(mapStateToProps, mapDispatchToProps)(Main))); //to connect component to Redux Store

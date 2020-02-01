@@ -1,7 +1,7 @@
 import React from 'react';
-import {Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Col, Row} from 'reactstrap';
+import {Breadcrumb, BreadcrumbItem, Button,Label, Col, Row} from 'reactstrap';
 import {Link} from 'react-router-dom';
-import {Control, LocalForm, Errors} from 'react-redux-form';
+import {Control, Form, LocalForm, Errors, actions} from 'react-redux-form';
 
 
 
@@ -13,11 +13,11 @@ const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val
 
 class Contact extends React.Component {
     
-    constructor(props){
-        super(props);
+    // constructor(props){
+    //     super(props);
 
-        //handleSubmit = this.handleSubmit.bind(this);
-    }
+    //     //handleSubmit = this.handleSubmit.bind(this);
+    // }
 
     
 
@@ -27,6 +27,7 @@ class Contact extends React.Component {
     handleSubmit(values) {
         console.log('Current state is:' + JSON.stringify(values));
         //alert('Current state is:' + JSON.stringify(values));
+        this.props.resetFeedbackForm();
     }
 
 
@@ -75,12 +76,12 @@ class Contact extends React.Component {
                         <h3> Send us your feedback</h3>
                     </div>
                     <div className='col-12 col-md-9'>
-                    <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                    <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
                     <Row className="form-group">
                                 <Label htmlFor="firstname" md={2}>First Name</Label>
                                 <Col md={10}>
                                     <Control.text model=".firstname" id="firstname" name="firstname"
-                                        placeholder="First Name"
+                                        placehol der="First Name"
                                         className="form-control"
                                         validators={{
                                             required, minLength: minLength(3), maxLength: maxLength(15)
@@ -91,7 +92,7 @@ class Contact extends React.Component {
                                         model=".firstname"
                                         show="touched"
                                         messages={{
-                                            required: 'Required',
+                                            required: 'Required | ',
                                             minLength: 'Must be greater than 2 characters',
                                             maxLength: 'Must be 15 characters or less'
                                         }}
@@ -113,7 +114,7 @@ class Contact extends React.Component {
                                         model=".lastname"
                                         show="touched"
                                         messages={{
-                                            required: 'Required',
+                                            required: 'Required | ',
                                             minLength: 'Must be greater than 2 characters',
                                             maxLength: 'Must be 15 characters or less'
                                         }}
@@ -135,7 +136,7 @@ class Contact extends React.Component {
                                         model=".telnum"
                                         show="touched"
                                         messages={{
-                                            required: 'Required',
+                                            required: 'Required | ',
                                             minLength: 'Must be greater than 2 numbers',
                                             maxLength: 'Must be 15 numbers or less',
                                             isNumber: 'Must be a number'
@@ -158,7 +159,7 @@ class Contact extends React.Component {
                                         model=".email"
                                         show="touched"
                                         messages={{
-                                            required: 'Required',
+                                            required: 'Required | ',
                                             validEmail: 'Invalid Email Address'
                                         }}
                                      />
@@ -198,7 +199,7 @@ class Contact extends React.Component {
                                     </Button>
                                 </Col>
                             </Row>
-                        </LocalForm>
+                        </Form>
                     </div>
                 </div>
             </div>

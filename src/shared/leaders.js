@@ -11,7 +11,7 @@ export const LEADERS = [
     {
       id: 1,
       name: 'Dhanasekaran Witherspoon',
-      image: '/assets/images/joker.jpg',
+      image: '/assets/images/alberto.png',
       designation: 'Chief Food Officer',
       abbr: 'CFO',
         featured: false,
@@ -45,12 +45,40 @@ export const LEADERS = [
       description: 'Award winning three-star Michelin chef with wide International experience having worked closely with whos-who in the culinary world, he specializes in creating mouthwatering Indo-Italian fusion experiences. He says, Put together the cuisines from the two craziest cultures, and you get a winning hit! Amma Mia!'
     },
     {
-      id: 3,
+      id: 5,
       name: "Robeca o'neil",
       image: '/assets/images/bean.jpg',
       designation: 'Executive Chef',
       abbr: 'EC',
       featured: true,
       description: 'Award winning three-star Michelin chef with wide International experience having worked closely with whos-who in the culinary world, he specializes in creating mouthwatering Indo-Italian fusion experiences. He says, Put together the cuisines from the two craziest cultures, and you get a winning hit! Amma Mia!'
-    }
+    },
+    {
+      id: 6,
+      name: 'Alex De Rodiguer',
+      image: '/assets/images/alberto.png',
+      designation: 'Executive Chef',
+      abbr: 'EC',
+      featured: true,
+      description: 'Award winning three-star Michelin chef with wide International experience having worked closely with whos-who in the culinary world, he specializes in creating mouthwatering Indo-Italian fusion experiences. He says, Put together the cuisines from the two craziest cultures, and you get a winning hit! Amma Mia!'
+    },
+    {
+      id: 7,
+      name: 'Alex De Rodiguer',
+      image: '/assets/images/alberto.png',
+      designation: 'Executive Chef',
+      abbr: 'EC',
+      featured: true,
+      description: 'Award winning three-star Michelin chef with wide International experience having worked closely with whos-who in the culinary world, he specializes in creating mouthwatering Indo-Italian fusion experiences. He says, Put together the cuisines from the two craziest cultures, and you get a winning hit! Amma Mia!'
+    },
+    
+    {
+      id: 8,
+      name: 'Alex De Rodiguer',
+      image: '/assets/images/alberto.png',
+      designation: 'Executive Chef',
+      abbr: 'EC',
+      featured: true,
+      description: 'Award winning three-star Michelin chef with wide International experience having worked closely with whos-who in the culinary world, he specializes in creating mouthwatering Indo-Italian fusion experiences. He says, Put together the cuisines from the two craziest cultures, and you get a winning hit! Amma Mia!'
+    },
   ];

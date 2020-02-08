@@ -4,6 +4,7 @@ import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbIte
 import {Link} from 'react-router-dom';
 import {Control, LocalForm, Errors} from 'react-redux-form';
 import {Loading} from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -30,7 +31,7 @@ class CommentForm extends React.Component {
         this.toggleModal();
         console.log('Current state is: ' + JSON.stringify(values));
         // alert('Current state is: ' + JSON.stringify(values));
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
     render () {
         return(
@@ -106,12 +107,12 @@ class CommentForm extends React.Component {
 } 
 
 function RenderDish ({dish}) {
-    //console.log("dish render invoked ", dish)
+    console.log("dish render invoked ", dish)
     if (dish != null) {
         return (
             <div>
                 <Card>
-                    <CardImg width="100%" src={dish.image} alt={dish.name} />
+                    <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
                     <CardBody>
                         <CardTitle>{dish.name}</CardTitle>
                         <CardText>{dish.description}</CardText>
@@ -127,8 +128,9 @@ function RenderDish ({dish}) {
         )
     }
 }
-function RenderComment({dishComments, addComment, dishId}) {
+function RenderComment({dishComments, postComment, dishId}) {
     //console.log("dish comments invoked ",dishComments)
+    console.log("post comment invoked ",postComment)
     if (dishComments != null) {
         return (
             <div >
@@ -159,7 +161,7 @@ function RenderComment({dishComments, addComment, dishId}) {
                         )
                         
                     })}
-                    <CommentForm dishId={dishId} addComment={addComment}/>
+                    <CommentForm dishId={dishId} postComment={postComment}/>
                 </Card>
                 
             </div>
@@ -211,7 +213,7 @@ const DishDetail = (props) => {
                     </div>
                     <div  className="col-md-5 m-1">
                         <RenderComment dishComments={props.comments} 
-                        addComment ={props.addComment}
+                        postComment ={props.postComment}
                         dishId={props.dish.id}
                         />
                         

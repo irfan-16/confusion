@@ -1,7 +1,7 @@
 import React from 'react';
 import {Breadcrumb, BreadcrumbItem, Button,Label, Col, Row} from 'reactstrap';
 import {Link} from 'react-router-dom';
-import {Control, Form, LocalForm, Errors, actions} from 'react-redux-form';
+import {Control, Form,  Errors, } from 'react-redux-form';
 
 
 
@@ -28,16 +28,20 @@ class Contact extends React.Component {
         console.log('Current state is:' + JSON.stringify(values));
         //alert('Current state is:' + JSON.stringify(values));
         this.props.resetFeedbackForm();
+        //this.props.postFeedback(values.id, values.firstname, values.lastname, values.telnum, values.email, values.agree, values.contactType, values.message);
+        this.props.postFeedback(values);
     }
 
 
-
-    render () {
+    render () { 
+        // fetch(`http://localhost:3002/feedback`).then(response => {return response.json()}).then((feedback)=>{
+        //     console.log(feedback)
+        // })
         return(
             <div className="container">
                 <div className="row">
                     <Breadcrumb>
-                        <BreadcrumbItem><Link to="/ome">Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
                         <BreadcrumbItem active>Contact Us</BreadcrumbItem> 
                     </Breadcrumb>
                     <div className="col-12">
@@ -205,7 +209,9 @@ class Contact extends React.Component {
             </div>
         );
     }
-    }
+}
+
+
     
 
 export default Contact;

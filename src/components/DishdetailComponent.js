@@ -35,6 +35,7 @@ class CommentForm extends React.Component {
         this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     }
     render () {
+
         return(
             <div> 
                 <div className='mt-2'>
@@ -108,7 +109,7 @@ class CommentForm extends React.Component {
 } 
 
 function RenderDish ({dish}) {
-    console.log("dish render invoked ", dish)
+    //console.log("dish render invoked ", dish)
     if (dish != null) {
         return (
             <div>
@@ -135,8 +136,8 @@ function RenderDish ({dish}) {
     }
 }
 function RenderComment({dishComments, postComment, dishId}) {
-    //console.log("dish comments invoked ",dishComments)
-    console.log("post comment invoked ",postComment)
+    //console.log("render dish invoked ", dishComments)
+    //console.log("post comment invoked ",postComment)
     if (dishComments != null) {
         return (
             <div >
@@ -152,7 +153,7 @@ function RenderComment({dishComments, postComment, dishId}) {
                                     <div style={{border:"1px solid red"}}>
                                         <div className="row">
                                             <ul>Comment: {comment.comment}</ul>
-                                            <ul>I have give: {comment.rating}</ul>
+                                            <ul>Rate: {comment.rating}</ul>
                                         </div>
                                         <div className="row">
                                             <ul>-- {comment.author}</ul>

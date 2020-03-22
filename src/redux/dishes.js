@@ -1,6 +1,8 @@
 import * as ActionTypes from './ActionTypes';
 
 //state should include 3 diff. case
+//state is object here not an array, using obj. is more 
+//easy to update
 export const Dishes = (state = { 
     isLoading: true,
     errMess: null,

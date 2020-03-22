@@ -82,7 +82,7 @@ class Main extends Component {
     }
     
     const DishWithId = ({match}) => { /*Route pass 3 props match, location, history */
-      //console.log("DishWithId invoked", {match})
+      //console.log("DishWithId invoked", this.props)
       
       return (
         <DishDetail dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]}
